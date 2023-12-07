@@ -30,7 +30,7 @@ export default {
           "POST /": "libs/ingest/functions/src/apigateway.handler",
         },
       });
-      api.attachPermissions("*");
+      api.attachPermissions([stream, "ssm:*"]);
 
       // Postgres table
       // new RDS(stack, "Database", {

@@ -2,10 +2,24 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 import { Kinesis } from "aws-sdk";
 import { KinesisStream } from "sst/node/kinesis-stream";
 
+import { getSSMParameterValue } from "../../../ssm";
+
 const kinesis = new Kinesis();
 
+// Specify the name of your parameter
+const API_KEY: string = "DATA_SOURCE_API_KEY";
+
 export async function handler(event: APIGatewayProxyEvent) {
+  const expectedApiKey: string = await getSSMParameterValue(API_KEY);
+
   try {
+    const apiKey = event.headers?.["x-api-key"];
+    if (!apiKey || apiKey !== expectedApiKey) {
+      return {
+        statusCode: 401,
+        body: JSON.stringify({ message: "Unauthorized: API key" }),
+      };
+    }
     if (!event.body) {
       return {
         statusCode: 400,
