@@ -1,10 +1,12 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { Kinesis } from "aws-sdk";
+import { KinesisClient, PutRecordCommand } from "@aws-sdk/client-kinesis";
 import { KinesisStream } from "sst/node/kinesis-stream";
 
 import { getSSMParameterValue } from "../../../ssm";
 
-const kinesis = new Kinesis();
+const kinesisClient = new KinesisClient({
+  region: "us-east-1",
+});
 
 // Specify the name of your parameter
 const API_KEY: string = "DATA_SOURCE_API_KEY";
@@ -39,7 +41,8 @@ export async function handler(event: APIGatewayProxyEvent) {
     };
 
     // Write data to Kinesis stream
-    await kinesis.putRecord(kinesisParams).promise();
+    const command = new PutRecordCommand(kinesisParams);
+    const response = await kinesisClient.send(command);
 
     console.log(
       "Message processed from API Gateway and queued in Kinesis Stream!"

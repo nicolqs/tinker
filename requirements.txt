@@ -1,3 +1,5 @@
 feedparser 
 nltk
 beautifulsoup4
+boto3
+python-ulid

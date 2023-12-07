@@ -11,6 +11,10 @@ export default {
   },
   stacks(app) {
     app.stack(function Site({ stack }) {
+      if (app.stage !== "prod") {
+        app.setDefaultRemovalPolicy("destroy");
+      }
+
       // Kinesis Data Steam
       const stream = new KinesisStream(stack, "stream", {
         consumers: {
@@ -39,17 +43,19 @@ export default {
       // });
 
       // DynamoDB Table
-      const table = new Table(stack, "waitlist", {
+      const table = new Table(stack, "sentiments", {
         fields: {
           id: "string",
-          email: "string",
+          source: "string",
+          mainWords: "string",
+          sentiment: "string",
           createdAt: "number",
         },
-        primaryIndex: { partitionKey: "email" },
+        primaryIndex: { partitionKey: "source" },
       });
 
       // Cron job to run News & Sentiment Analysis
-      const cron = new Cron(stack, "Cron", {
+      const cronSentiment = new Cron(stack, "Cron", {
         schedule: "rate(5 minutes)",
         job: {
           function: {
@@ -59,7 +65,7 @@ export default {
         },
         // enabled: !app.local,
       });
-      cron.attachPermissions([table]);
+      cronSentiment.attachPermissions([table]);
 
       // Next JS Site
       const site = new NextjsSite(stack, "site", {
