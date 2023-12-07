@@ -1,5 +1,5 @@
 import { SSTConfig } from "sst";
-import { Api, KinesisStream, NextjsSite, Table } from "sst/constructs";
+import { Api, Cron, KinesisStream, NextjsSite, Table } from "sst/constructs";
 
 export default {
   config(_input) {
@@ -15,7 +15,6 @@ export default {
       const stream = new KinesisStream(stack, "stream", {
         consumers: {
           consumer1: "libs/ingest/functions/src/consumer1.handler",
-          consumer2: "libs/ingest/functions/src/consumer2.handler",
         },
       });
 
@@ -48,6 +47,19 @@ export default {
         },
         primaryIndex: { partitionKey: "email" },
       });
+
+      // Cron job to run News & Sentiment Analysis
+      const cron = new Cron(stack, "Cron", {
+        schedule: "rate(5 minutes)",
+        job: {
+          function: {
+            handler: "libs/ingest/functions/src/sentiment.handler",
+            runtime: "python3.11",
+          },
+        },
+        // enabled: !app.local,
+      });
+      cron.attachPermissions([table]);
 
       // Next JS Site
       const site = new NextjsSite(stack, "site", {
