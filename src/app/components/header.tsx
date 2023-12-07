@@ -9,32 +9,6 @@ const Header = () => (
           <Link href={"/"}> Tinker </Link>
         </p>
       </div>
-
-      <div>
-        <ul className={"flex "}>
-          <li className={"mx-4"}>
-            <p>
-              <Link href={"/"}>Payment</Link>
-            </p>
-          </li>
-
-          <li className={"mx-4"}>
-            <p>
-              <Link href={"/"}> Services </Link>{" "}
-            </p>
-          </li>
-
-          <li className={"mx-4"}>
-            <p>
-              <Link href={"/"}> Account </Link>
-            </p>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <button> Coming To IOS</button>
-      </div>
     </nav>
   </header>
 );
