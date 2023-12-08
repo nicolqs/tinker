@@ -14,3 +14,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - Next.js
 - SST
+
+## Project Structure
+
+```
+my-sst-app
+├─ package.json
+├─ sst.config.ts
+├─ packages
+│  ├─ core
+│  │  └─ migrations
+│  ├─ functions
+│  ├─ graphql
+│  └─ web
+└─ stacks
+```

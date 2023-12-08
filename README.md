@@ -13,7 +13,7 @@ yarn run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the frontend App.
 
-## Technos
+## Technology Stack and Tools
 
 - Next.JS
 - [SST](https://sst.dev/chapters/what-is-sst.html): define our infrastructure as code (IaC)
