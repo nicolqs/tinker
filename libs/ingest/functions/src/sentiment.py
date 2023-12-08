@@ -75,6 +75,7 @@ def compute_data_and_save(data, source):
     # Data Frame
     df = pd.DataFrame(data)
     df_sentiment_means = df[["Title_Sentiment", "Description_Sentiment"]].mean()
+    sentiment_mean = df_sentiment_means.loc["Description_Sentiment"]
 
     # Compute most common words
     most_common_words = [
@@ -88,7 +89,7 @@ def compute_data_and_save(data, source):
     write_to_dynamodb(
         source,
         common_words_json,
-        df_sentiment_means.loc["Description_Sentiment"],
+        sentiment_mean,
     )
 
 

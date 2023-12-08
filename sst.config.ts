@@ -55,7 +55,7 @@ export default {
       });
 
       // Cron job to run News & Sentiment Analysis
-      const cronSentiment = new Cron(stack, "Cron", {
+      const cronSentiment = new Cron(stack, "cronSentiment", {
         schedule: "rate(5 minutes)",
         job: {
           function: {
@@ -66,6 +66,19 @@ export default {
         // enabled: !app.local,
       });
       cronSentiment.attachPermissions([table]);
+
+      // Cron job to fetch real-time data from various cryptocurrency exchanges
+      const cronDataFetcher = new Cron(stack, "cronDataFetcher", {
+        schedule: "rate(1 minute)",
+        job: {
+          function: {
+            handler: "libs/ingest/functions/src/data_fetcher.handler",
+            runtime: "python3.11",
+          },
+        },
+        // enabled: !app.local,
+      });
+      // cronDataFetcher.attachPermissions([table]);
 
       // Next JS Site
       const site = new NextjsSite(stack, "site", {

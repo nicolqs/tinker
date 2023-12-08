@@ -8,7 +8,6 @@ const kinesisClient = new KinesisClient({
   region: "us-east-1",
 });
 
-// Specify the name of your parameter
 const API_KEY: string = "DATA_SOURCE_API_KEY";
 
 export async function handler(event: APIGatewayProxyEvent) {
