@@ -63,7 +63,7 @@ export default {
             runtime: "python3.11",
           },
         },
-        // enabled: !app.local,
+        enabled: !app.local,
       });
       cronSentiment.attachPermissions([table]);
 
@@ -74,6 +74,9 @@ export default {
           function: {
             handler: "libs/ingest/functions/src/data_fetcher.handler",
             runtime: "python3.11",
+            environment: {
+              ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY || "",
+            },
           },
         },
         // enabled: !app.local,
