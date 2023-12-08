@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "check:git-pristine": "./scripts/check-git-pristine.sh"
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "typecheck": "tsc --project ./tsconfig.base.json --noEmit"
   },
   "engines": {
     "node": ">=18.12.0",

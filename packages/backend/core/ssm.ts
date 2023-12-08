@@ -19,7 +19,9 @@ export async function getSSMParameterValue(
 
     return response.Parameter?.Value || "";
   } catch (error) {
-    console.error("Error retrieving parameter:", error.message);
+    if (error instanceof Error) {
+      console.error("Error retrieving parameter:", error.message);
+    }
   }
   return "";
 }
