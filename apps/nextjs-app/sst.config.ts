@@ -18,7 +18,7 @@ export default {
       // Kinesis Data Steam
       const stream = new KinesisStream(stack, "stream", {
         consumers: {
-          consumer1: "libs/ingest/functions/src/consumer1.handler",
+          consumer1: "lib/functions/consumer1.handler",
         },
       });
 
@@ -30,7 +30,7 @@ export default {
           },
         },
         routes: {
-          "POST /": "libs/ingest/functions/src/apigateway.handler",
+          "POST /": "lib/functions/apigateway.handler",
         },
       });
       api.attachPermissions([stream, "ssm:*"]);
@@ -59,7 +59,7 @@ export default {
         schedule: "rate(5 minutes)",
         job: {
           function: {
-            handler: "libs/ingest/functions/src/sentiment.handler",
+            handler: "lib/functions/sentiment.handler",
             runtime: "python3.11",
           },
         },
@@ -72,7 +72,7 @@ export default {
         schedule: "rate(1 minute)",
         job: {
           function: {
-            handler: "libs/ingest/functions/src/data_fetcher.handler",
+            handler: "lib/functions/data_fetcher.handler",
             runtime: "python3.11",
             environment: {
               ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY || "",

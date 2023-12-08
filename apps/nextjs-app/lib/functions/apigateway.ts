@@ -9,7 +9,7 @@ const kinesisClient = new KinesisClient({
 
 const API_KEY: string = "DATA_SOURCE_API_KEY";
 
-export default async function handler(event: APIGatewayProxyEvent) {
+export async function handler(event: APIGatewayProxyEvent) {
   const expectedApiKey: string = await getSSMParameterValue(API_KEY);
 
   try {
