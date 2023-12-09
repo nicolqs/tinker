@@ -1,5 +1,5 @@
 {
-  "name": "@tinker/nextjsapp",
+  "name": "@tinker/sstapp",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -9,6 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "sst-build": "sst build",
+    "sst-deploy": "sst deploy",
+    "sst-remove": "sst remove",
+    "sst-console": "sst console",
     "typecheck": "tsc --noEmit",
     "gen": "hygen"
   },

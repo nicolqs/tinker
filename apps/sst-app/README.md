@@ -23,9 +23,16 @@ my-sst-app
 ├─ sst.config.ts
 ├─ packages
 │  ├─ core
-│  │  └─ migrations
+│  │  └─ migrations (SQL)
 │  ├─ functions
 │  ├─ graphql
-│  └─ web
 └─ stacks
 ```
+
+- `sst.config.ts` defines the project config and the stacks in the app.
+- `stacks/` directory contains the app's Infrastructure as Code (IaC).
+
+- `packages/` directory houses everything that powers the backend
+- `packages/core` contains all of the business logic. Separate from API and Lambda functions.
+- `packages/functions` all the code for Lambda functions. mostly be calling into `packages/core`
+- `packages/graphql` GraphQL related code generation.
